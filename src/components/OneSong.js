@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
 import SongsContext from '../contexts/SongsContext'
 function OneSong(song) {
-  const {changeCurrentSong, currentSong} = useContext(SongsContext)
+  const {changeCurrentSong, currentSong, setPlay} = useContext(SongsContext)
 
   return (
-    <div className='one-music py-3 gap-4' onClick={()=>changeCurrentSong(song.song)}>
+    <div className='one-music py-3 gap-4' onClick={()=>{changeCurrentSong(song.song); setPlay(true)}}>
         <img className='' alt='music' src={song.song.album?.cover_big}></img>
         <div>
             <h4 className={(currentSong.title === song.song.title)?'text-info':''}>{song.song.title}</h4>

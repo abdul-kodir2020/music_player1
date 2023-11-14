@@ -2,15 +2,15 @@ import React, { useContext, useEffect, useState } from 'react'
 import SongsContext from '../contexts/SongsContext'
 
 function SongPlayer() {
-    const {currentSong} = useContext(SongsContext)
+    const {currentSong, play, setPlay, pauseOrPlay, goForward, goBackward} = useContext(SongsContext)
     const [full, setFull] = useState(false)
-    const [play, setPlay] = useState(true)
+    // const [play, setPlay] = useState(true)
 
     const audio = document.querySelector('audio')
 
     useEffect(()=>{
         audio.addEventListener("timeupdate", timeupdate);
-    },[play])
+    },[setPlay])
 
     const timeupdate = () =>{
         
@@ -27,18 +27,6 @@ function SongPlayer() {
         }
     }
 
-    const pauseOrPlay = () =>{
-        const audio = document.querySelector('audio')
-
-        
-        if (play) {
-            audio.pause()
-            setPlay(false)
-        } else {
-            audio.play()
-            setPlay(true)
-        }
-    }
 
     const fullSize = (e) =>{
         if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'I') {
@@ -106,7 +94,7 @@ function SongPlayer() {
                         </div>
                         <div className='buttons-player-full'>
                             <button className='btn border-0'><i class="fa-solid fa-shuffle"></i></button>
-                            <button className='btn border-0'><i class="fa-solid fa-backward-step display-5"></i></button>
+                            <button className='btn border-0' onClick={goBackward}><i class="fa-solid fa-backward-step display-5"></i></button>
                             <button className='btn border-0' onClick={()=>pauseOrPlay()}>
                                 {
                                     (play)?
@@ -114,7 +102,7 @@ function SongPlayer() {
                                     :<i className="fa-solid fa-play display-1"></i>
                                 }
                             </button>
-                            <button className='btn border-0'><i class="fa-solid fa-forward-step display-5"></i></button>
+                            <button className='btn border-0' onClick={goForward}><i class="fa-solid fa-forward-step display-5"></i></button>
                             <button className='btn border-0'><i class="fa-solid fa-arrow-rotate-left"></i></button>
                         </div>
                     </div>
